@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitHub</title>
+    <!-- MATERIAL CDN -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css"
+</head>
+<body>
+
+    <div class="new-excer-container" id="new-excer-container">
+        <div class="form-area">
+            <h3>Ejercicio</h3>
+            <p class="single-form">
+                <select id="ne_equipmentList" name="ne_equipmentList"></select>
+            </p>
+    
+            <p class="single-form">
+                <select id="ne_muscleLis" name="ne_muscleLis"></select>
+            </p>
+    
+            <p class="single-form">
+                <input type="text" name="name" id="ne_name" required>
+                <label for="name">Nombre del ejercicio</label>
+            </p>
+    
+            <p class="single-form">
+                <input type="text" name="min_img_url" id="ne_min_img_url" required>
+                <label for="min_img_url">Imagen minuatura</label>
+            </p>
+    
+            <p class="single-form">
+                <input type="text" name="anim_img_url" id="ne_anim_img_url" required>
+                <label for="anim_img_url">Imagen animada</label>
+            </p>
+    
+            <p class="single-form">
+                <input type="text" name="stat_img_url" id="ne_stat_img_url" required>
+                <label for="stat_img_url">Imagen estática</label>
+            </p>
+            
+            <div class="new_exc_buttons">
+                <p class="btn-form btn-submit" id="btn-submit">Guardar</p>
+                <p class="btn-form btn-cancel" id="btn-cancel">Cancelar</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="contenedor">
+
+        <header class="header">
+            <h2>FitHUB</h2>
+        </header>
+        
+        <aside class="sidebar"> 
+
+            <div class="filters">
+                <h3>Filtros</h3>
+               
+                <div class="equipContainer">
+                    <select id="equipmentList" name="equipmentList">
+                    </select>
+                </div>
+    
+                <div class="muscleContainer">
+                    <select id="muscleLis" name="muscleLis">
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="library">
+                <div class="lib-title">
+                    <h3>Librería</h3>
+                    <p id="btnNewExc" class="btnNewExc">+ Crear ejercicio</p>
+                </div>
+                
+                <input type="text" id="fname" name="firstname" placeholder="Buscar ejercicio..">
+            </div>
+
+            <div class="items-library" id="items-library">
+                
+            </div>
+
+        </aside>
+
+        <main class="contenido">
+            <h1>Ejercicio</h1>
+
+            <div class="info-exc">
+
+                <div class="img-card">
+                    <img id="cover" src="https://www.bodybuildingmealplan.com/wp-content/uploads/shutterstock_428906836-scaled.jpg" alt="Ejercicio">
+                </div>
+
+                <div class="card">
+                    <div class="content">
+
+                        <div class="title">
+                            <h3 id="ex-title">Arnold Press (Dumbbell)</h3>
+                        </div>
+
+                        <div class="ex-details">
+                            
+                            <div class="detail">
+                                <img class="square" src="./images/equipment.png" alt="">
+                                <label>Equipo: <span id="ex-equip">Dumbbell</span></label>
+                            </div>
+
+                            <div class="detail">
+                                <img class="square" src="./images/primary.png" alt="">
+                                <label>Grupo Primario: <span id="ex-musc">Shoulders</span></label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </main>
+
+        <div class="btn-upd" id="btn-upd">
+            <h3>Editar</h3>
+        </div>
+
+        <div class="btn-del" id="btn-del">
+            <h3>Eliminar</h3>
+        </div>
+
+        <footer class="footer">    
+        <h3>FOOTER</h3>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
