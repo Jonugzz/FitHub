@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
+const bycrypt = require('bcrypt');
 const {DATABASE_URL, PORT } = require('./config');
 const { Exercices } = require('./models/exer-model');
+const { Users } = require('./models/users-model');
 
 const app = express();
 const jsonParser = bodyParser.json();
@@ -16,6 +18,74 @@ app.use(morgan('dev'));
 //home
 app.get('/', function(req,res){
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+//create user
+app.post('/fithub/register', jsonParser, (req,res) => {
+    let { email , password } = req.body;
+
+    if(!email || !password){
+        res.statusMessage = "Faltan datos para crear al usuario";
+        return res.status(406).end();
+    }
+
+    bycrypt.hash(password, 10)
+        .then(hassedpass => {
+            let newUser = {
+                email,
+                password : hassedpass
+            };
+
+            Users
+                .createUser(newUser)
+                .then(result => {
+                    return res.status(201).json(result);
+                })
+                .catch(err => {
+                    res.statusMessage = "El email ya esta en uso";
+                    return res.status(400).end()
+                });
+        })
+        .catch( err => {
+            res.statusMessage = err.message;
+            return res.status(400).end();
+        });
+});
+
+//login
+app.post('/fithub/login', jsonParser, (req,res) => {
+    let { email , password } = req.body;
+
+    if(!email || !password){
+        res.statusMessage = "Faltan datos";
+        return res.status(406).end();
+    }
+
+    Users
+        .getUser(email)
+        .then(user => {
+            if(user == null){
+                res.statusMessage = "No hay cuenta registrada con ese email";
+                return res.status(406).end();
+            }
+            bycrypt.compare(password, user.password)
+            .then(result => {
+                if(result) {
+                    let userData = {
+                        email : user.email
+                    };
+                    return res.status(200).json(userData)
+                }
+                else {
+                    res.statusMessage = "Credenciales invalidas";
+                    return res.status(400).end();
+                }
+            })
+            .catch(err => {
+                res.statusMessage = err.message;
+                return res.status(400).end();
+            });
+        });
 });
 
 //create exercice
