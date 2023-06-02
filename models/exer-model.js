@@ -41,6 +41,16 @@ var Exercices = {
                 throw new Error( err );
             });
     },
+    getById : function(id){
+        return exerCollection
+        .findOne( {id : id} )
+        .then( exer => {
+            return exer;
+        })
+        .catch( err => {
+            throw new Error( err );
+        });
+    },
     getAllExercices : function(){
         return exerCollection
             .find()
@@ -50,7 +60,28 @@ var Exercices = {
             .catch(err => {
                 return err;
             });
+    },
+    editExer : function(id, upExer){
+        return exerCollection
+            .findOneAndUpdate( {id : id}, upExer )
+            .then( nExer => {
+                return nExer;
+            })
+            .catch( err => {
+                throw new Error( err );
+            });
+    },
+    delExer : function(id){
+        return exerCollection
+            .findOneAndDelete( {id : id} )
+            .then( exer => {
+                return exer;
+            })
+            .catch( err => {
+                throw new Error( err );
+            });
     }
+    
 }
 
 module.exports = { Exercices };
