@@ -38,6 +38,41 @@ var Users = {
         .catch(err => {
             throw new Error(err.message);
         });
+    },
+    addExer : function(email, exer){
+        return userModel
+        .findOne({email})
+        .then(user => {
+            user.exercices.push(exer);
+            user.save();
+            return user;
+        })
+        .catch(err => {
+            throw new Error(err.message);
+        });
+    }, 
+    getUserE : function(email){
+        return userModel
+        .findOne({email})
+        .populate('exercices')
+        .then(userEx => {
+            return userEx;
+        })
+        .catch(err => {
+            throw new Error(err.message);
+        });
+    },
+    delUserExer : function(email, exer_id){
+        return userModel
+        .findOne({email})
+        .then(user => {
+            user.exercices.pull(exer_id);
+            user.save();
+            return user;
+        })
+        .catch(err => {
+            throw new Error(err.message);
+        });
     }
 }
 

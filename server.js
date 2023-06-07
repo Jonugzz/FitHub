@@ -198,6 +198,82 @@ app.put('/fithub/edit_excer/:id', jsonParser, (req,res) => {
     
 });
 
+//add exercise to a user list
+//user_id es el email
+app.post('/fithub/addUserExer', jsonParser, (req,res) => {
+    let { user_id, exer_id } = req.body;
+    //user_id es el email del usuario
+    if(!user_id || !exer_id){
+        res.statusMessage = "Faltan parametros en la request";
+        return res.status(406).end();
+    }
+
+    Exercices
+        .getById(exer_id)
+        .then(exer => {
+            Users
+                .addExer(user_id, exer)
+                .then(user => {
+                    return res.status(201).json(user);
+                })
+                .catch(err => {
+                    res.statusMessage = err.message;
+                    return res.status(400).end();
+                })
+        })
+        .catch(err => {
+            res.statusMessage = 'Ejercicio no encontrado';
+            return res.status(400).end()
+        });
+});
+
+//get user exercices
+//te regresa un usuario con su arreglo de exercicios y sus parametros
+//user_id es el email del usuario
+app.get('/fithub/getUserExer', jsonParser, (req,res) => {
+    let { user_id } = req.body;
+
+    Users
+        .getUserE(user_id)
+        .then(user => {
+           return res.status(200).json(user);
+        })
+        .catch(err => {
+            res.statusMessage = err.message;
+            return res.status(400).end()
+        });
+});
+
+//delete exercice from a user 
+//user_id es el email del usuario
+app.post('/fithub/delUserExer', jsonParser, (req,res) => {
+    let { user_id, exer_id } = req.body;
+    //user_id es el email del usuario
+    if(!user_id || !exer_id){
+        res.statusMessage = "Faltan parametros en la request";
+        return res.status(406).end();
+    }
+
+    Exercices
+        .getById(exer_id)
+        .then(exer => {
+            let eid = exer._id;
+            Users
+                .delUserExer(user_id, eid)
+                .then(user => {
+                    return res.status(201).json(user);
+                })
+                .catch(err => {
+                    res.statusMessage = err.message;
+                    return res.status(400).end();
+                })
+        })
+        .catch(err => {
+            res.statusMessage = 'Ejercicio no encontrado';
+            return res.status(400).end()
+        });
+});
+
 app.listen(PORT, () => {
     console.log("Server runing on port " + PORT);
 
