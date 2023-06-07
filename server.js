@@ -91,20 +91,21 @@ app.post('/fithub/login', jsonParser, (req,res) => {
 //create exercice
 app.post('/fithub/newExer', jsonParser, (req,res) => {
     let { 
-        id,
+        // _id, // Se deja de pedir por el autoincrement
         title_exer, 
         muscle_exer,
         equipment, 
         min_img_url, 
         anim_img_url } = req.body;
-
-    if(!id || !title_exer || !muscle_exer || !equipment || !min_img_url || !anim_img_url){
+        // Se elimino el campo _id requerido
+        //if(!_id || !title_exer || !muscle_exer || !equipment || !min_img_url || !anim_img_url){
+    if(!title_exer || !muscle_exer || !equipment || !min_img_url || !anim_img_url){
         res.statusMessage = "Faltan parametros en la request";
         return res.status(406).end();
     }
 
     let newExer = {
-        id,
+        //_id, // Se deja de pedir por el autoincrement
         title_exer, 
         muscle_exer,
         equipment, 
@@ -124,9 +125,9 @@ app.post('/fithub/newExer', jsonParser, (req,res) => {
     
 });
 
-//get exercise by id
-app.get('/fithub/exer/:id', (req,res) => {
-    let eid = req.params.id
+//get exercise by _id
+app.get('/fithub/exer/:_id', (req,res) => {
+    let eid = req.params._id
     Exercices
         .getById(eid)
         .then(result => {
@@ -149,9 +150,9 @@ app.get('/fithub/exercices', (req,res) => {
 
 //delete exercise
 app.post('/fithub/del_excer', jsonParser, (req,res) => {
-    let { id } = req.body
+    let { _id } = req.body
     Exercices
-        .delExer(id)
+        .delExer(_id)
         .then(exer  => {
             return res.status(200).json(exer);
         })
@@ -162,23 +163,23 @@ app.post('/fithub/del_excer', jsonParser, (req,res) => {
 });
 
 //edit exercise
-app.put('/fithub/edit_excer/:id', jsonParser, (req,res) => {
-    let oid = req.params.id
+app.put('/fithub/edit_excer/:_id', jsonParser, (req,res) => {
+    let oid = req.params._id
     let { 
-        id,
+        _id,
         title_exer, 
         muscle_exer,
         equipment, 
         min_img_url, 
         anim_img_url } = req.body;
 
-    if(!id || !title_exer || !muscle_exer || !equipment || !min_img_url || !anim_img_url){
+    if(!_id || !title_exer || !muscle_exer || !equipment || !min_img_url || !anim_img_url){
         res.statusMessage = "Faltan parametros en la request";
         return res.status(406).end();
     }
 
     let newExer = {
-        id,
+        _id,
         title_exer, 
         muscle_exer,
         equipment, 

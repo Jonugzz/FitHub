@@ -300,6 +300,10 @@ input[type=text], select {
     overflow:scroll;
   }
 
+  .id-excer{
+    visibility: hidden;
+  }
+
   .title-excer{
     font-size: 20px;
   }

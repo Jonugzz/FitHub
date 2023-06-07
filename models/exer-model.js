@@ -1,11 +1,7 @@
+const { AutoIncrement } = require('../config');
 const mongoose = require('mongoose');
 
 const exercieSchema = mongoose.Schema({
-    id : {
-        type : Number,
-        required : true,
-        unique : true
-    },
     title_exer : {
         type : String,
         required : true
@@ -41,9 +37,9 @@ var Exercices = {
                 throw new Error( err );
             });
     },
-    getById : function(id){
+    getById : function(_id){
         return exerCollection
-        .findOne( {id : id} )
+        .findOne( {_id : _id} )
         .then( exer => {
             return exer;
         })
@@ -61,9 +57,9 @@ var Exercices = {
                 return err;
             });
     },
-    editExer : function(id, upExer){
+    editExer : function(_id, upExer){
         return exerCollection
-            .findOneAndUpdate( {id : id}, upExer )
+            .findOneAndUpdate( {_id : _id}, upExer )
             .then( nExer => {
                 return nExer;
             })
@@ -71,9 +67,9 @@ var Exercices = {
                 throw new Error( err );
             });
     },
-    delExer : function(id){
+    delExer : function(_id){
         return exerCollection
-            .findOneAndDelete( {id : id} )
+            .findOneAndDelete( {_id : _id} )
             .then( exer => {
                 return exer;
             })
@@ -81,8 +77,6 @@ var Exercices = {
                 throw new Error( err );
             });
     }
-    
 }
 
 module.exports = { Exercices };
-
