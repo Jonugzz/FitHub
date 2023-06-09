@@ -3,6 +3,7 @@ $(document).ready(function() {
     // Start your code from here
 
 let library_muscles = [ 
+    "Todos",
     "Abdominales", 
     "Abductores",
     "Aductores",
@@ -25,6 +26,7 @@ let library_muscles = [
     "Otros"
 ]
 let library_equip = [ 
+"Todos",
 "Ninguno",
 "Banda de Resistencia",
 "Banda de Suspensión",
@@ -100,7 +102,38 @@ function loadLists(){
     }    
 }
 
+$("#buscar_ejercicio").on("keyup", function() {
+  filterExercises($(this).val());
+});
 
+function filterExercises(value) {
+  const filteredExercises = library_exercise.filter(exercise =>
+    exercise.title_exer.toLowerCase().includes(value.toLowerCase())
+  );
+
+  loadLibrary(filteredExercises);  
+}
+
+// Agrega eventos 'change' a tus listas desplegables para actualizar los ejercicios
+$('#muscleLis, #equipmentList').change(function() {
+  $("#buscar_ejercicio").val(""); // Limpiar el campo de búsqueda si no hay resultados
+  filterExercisesByMuscleAndEquipment();
+});
+
+// Esta función actualizará tus ejercicios en base a los filtros seleccionados
+function filterExercisesByMuscleAndEquipment() {
+  let selectedMuscle = $('#muscleLis').val();
+  let selectedEquipment = $('#equipmentList').val();
+
+  let filteredExercises = library_exercise.filter(function(exercise) {
+      let muscleMatch = selectedMuscle === "Todos" || exercise.muscle_exer === selectedMuscle;
+      let equipmentMatch = selectedEquipment === "Todos" || exercise.equipment === selectedEquipment;
+
+      return muscleMatch && equipmentMatch;
+  });
+
+  loadLibrary(filteredExercises);
+}
 
 $(".lib-title").on("click", '.btnNewExc', function(){
     let var_clear = ''
@@ -259,29 +292,27 @@ function fSelItem(){
 }
 
 function loadLibrary(array) {
+  $("#items-library").empty();
 
-    $("#items-library").empty();
-
-    for(let i = 0; i < array.length; i++){
-
-        $(".items-library").append(
-            `
-            <div class="item" _id="item">
-            <div class="item-library">
-                <div class="img-container">
-                    <img class="cover" src="${array[i].min_img_url}" alt="${array[i].title_exer}">
-                </div>
-                <div class="info-excer">
-                    <p class="id-excer _id="${array[i]._id}">${array[i]._id}</p>
-                    <p class="title-excer _id="${array[i].title_exer}">${array[i].title_exer}</p>
-                    <p class="muscle-excer _id="muscle-excer">${array[i].muscle_exer}</p>
-                </div>
-            </div>
-            <hr>
-            </div>
-        `)
-    }
+  for (let i = 0; i < array.length; i++) {
+    $(".items-library").append(`
+      <div class="item" _id="item">
+        <div class="item-library">
+          <div class="img-container">
+            <img class="cover" src="${array[i].min_img_url}" alt="${array[i].title_exer}">
+          </div>
+          <div class="info-excer">
+            <p class="id-excer" _id="${array[i]._id}">${array[i]._id}</p>
+            <p class="title-excer" _id="${array[i].title_exer}">${array[i].title_exer}</p>
+            <p class="muscle-excer" _id="muscle-excer">${array[i].muscle_exer}</p>
+          </div>
+        </div>
+        <hr>
+      </div>
+    `);
+  }
 }
+
 
 function loadExercise(itemExer){
     $(".cover")

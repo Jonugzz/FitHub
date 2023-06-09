@@ -182,6 +182,11 @@ padding: 20px;
 border-radius: 4px;
 }
 
+.fil_width
+{
+    min-width: 305px;
+}
+
 .contenedor .header{
     background: #12203E;
     color: #fff;
