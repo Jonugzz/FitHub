@@ -27,7 +27,18 @@ body{
     transform: translate(-50%, -50%);
 }
 
-
+.login-container{
+    display: block;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 1);
+    width: 100%;
+    height: 100%;
+    /* position the div in center */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .form-area{
     margin: 30px;
@@ -104,6 +115,36 @@ body{
     background: #00b2b0;
 }
 
+.btn-library{
+    background: #12203E;
+}
+
+.btnLogout{
+    background-color: #da1b1bb1;
+    color: #ffffff;
+    height: 35px;
+    padding: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.btnLogin{
+    background-color: #0f5ac1b1;
+    color: #ffffff;
+    height: 35px;
+    padding: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
 .form-area label{
     position: absolute;
     top: 12px;
@@ -174,7 +215,7 @@ border-radius: 4px;
 
 .contenedor .btn-del{
     grid-area: widget-2;
-    background: hsla(0, 78%, 48%, 0.695);
+    background: #d77300b1;
 }
 
 .contenedor .footer{
