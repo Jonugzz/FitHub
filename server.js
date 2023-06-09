@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const bycrypt = require('bcrypt');
-const {DATABASE_URL, PORT } = require('./config');
+const {DATABASE_URL, PORT, SECRET_TOKEN } = require('./config');
 const { Exercices } = require('./models/exer-model');
 const { Users } = require('./models/users-model');
+const jsonwebtoken = require('jsonwebtoken');
 
 const app = express();
 const jsonParser = bodyParser.json();
@@ -18,6 +19,21 @@ app.use(morgan('dev'));
 //home
 app.get('/', function(req,res){
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/fithub/validate-token', (req, res) => {
+    let token = req.headers.sessiontoken;
+    
+    jsonwebtoken.verify(token, SECRET_TOKEN, (err, decoded) => {
+        if(err) {
+            res.statusMessage = "La sesion ha expirado";
+            return res.status(409).end();
+        }
+        return res.status(200).json({
+            email : decoded.email
+        })
+    });
+    
 });
 
 //create user
@@ -74,7 +90,13 @@ app.post('/fithub/login', jsonParser, (req,res) => {
                     let userData = {
                         email : user.email
                     };
-                    return res.status(200).json(userData)
+                    jsonwebtoken.sign(userData, SECRET_TOKEN, {expiresIn : 30}, (err, token) => {
+                        if (err) {
+                            res.statusMessage = err.message;
+                            return res.status(400).end();
+                        }
+                        return res.status(200).json({token})
+                    });
                 }
                 else {
                     res.statusMessage = "Credenciales invalidas";
