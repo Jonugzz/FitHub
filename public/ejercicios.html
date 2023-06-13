@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Evita el almacenamiento en caché -->
+     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+     <meta http-equiv="Pragma" content="no-cache" />
+     <meta http-equiv="Expires" content="0" />
     <title>FitHub</title>
     <!-- MATERIAL CDN -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp">
@@ -81,7 +85,7 @@
                     <p id="btnNewExc" class="btnNewExc">+ Crear ejercicio</p>
                 </div>
                 
-                <input class="fil_width" name="buscar_ejercicio" id="buscar_ejercicio" placeholder="Buscar ejercicio..">
+                <input class="fil_width" type="text" name="buscar_ejercicio" id="buscar_ejercicio" placeholder="Buscar ejercicio..">
             </div>
 
             <div class="items-library" id="items-library">

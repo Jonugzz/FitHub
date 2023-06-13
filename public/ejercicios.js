@@ -1,6 +1,22 @@
 $(document).ready(function() {
 
-    // Start your code from here
+  // Verificar si hay un token almacenado
+  var token = localStorage.getItem('sessiontoken');
+  if (!token) {
+      // Si no hay token, redirigir al inicio de sesión
+      window.location.href = "login.html";
+  }
+
+  // ... el resto de tu código va aquí ...
+
+  // Controlador de eventos para el botón de cierre de sesión
+  $("#btnLogout").click(function() {
+      // Borrar el token del Local Storage
+      localStorage.removeItem('sessiontoken');
+      // Redirigir al inicio de sesión
+      window.location.href = "login.html";
+  });
+
 
 let library_muscles = [ 
     "Todos",

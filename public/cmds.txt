@@ -1,0 +1,20 @@
+Arrancar BD:
+brew services start mongodb-community@6.0
+
+Detener BD:
+brew services stop mongodb-community@6.0
+
+Obtener Updates git:
+git pull origin <nombre-de-la-rama>
+
+Cargar Updates:
+1: git add .
+2: git commit -m "Agregando nuevas funcionalidades"
+3: git push origin <nombre-de-la-rama>
+
+
+Correr servidor:
+nodemon server.js
+
+Pagina: 
+http://localhost:8080/
