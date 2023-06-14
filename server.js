@@ -33,6 +33,10 @@ app.get('/ejercicios', function(req,res){
     res.sendFile(path.join(__dirname, 'public', 'ejercicios.html'));
 });
 
+app.get('/lib', function(req,res){
+    res.sendFile(path.join(__dirname, 'public', 'lib.html'));
+});
+
 app.get('/fithub/validate-token', (req, res) => {
     let token = req.headers.sessiontoken;
     

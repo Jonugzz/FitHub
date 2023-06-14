@@ -36,7 +36,11 @@ $(document).ready(function() {
     });
 
     $("#btn-reg").click(function() {
-        // Redirigir a libreria.html
         window.location.href = "/registro";
+    });
+
+    $("#btn-lib").click(function() {
+        // Redirigir a lib.html
+        window.location.href = "/lib";
     });
 });
