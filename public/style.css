@@ -27,6 +27,20 @@ body{
     transform: translate(-50%, -50%);
 }
 
+.add-excer-container{
+    display: none;
+    font-size: 16px;
+    background: rgba(0, 178, 176, 0.5);
+    width: 100%;
+    height: 100%;
+    /* position the div in center */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 .login-container{
     display: block;
     font-size: 16px;

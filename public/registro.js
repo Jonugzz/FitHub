@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#btn-login-submit").click(function(e) {
+    $("#btn-reg-submit").click(function(e) {
         e.preventDefault();
 
         var username = $("#username").val();
@@ -7,7 +7,7 @@ $(document).ready(function() {
 
         // Llamar al endpoint de inicio de sesión
         $.ajax({
-            url: '/fithub/login',  // URL del endpoint de inicio de sesión
+            url: '/fithub/register',  // URL del endpoint de inicio de sesión
             type: 'POST',          // Método del endpoint
             contentType: 'application/json', // Indica que estamos enviando JSON
             data: JSON.stringify({ 
@@ -15,18 +15,9 @@ $(document).ready(function() {
                 password: password // Nombre del campo de contraseña en tu endpoint
             }),
             success: function(response) {
-                // Almacenar el token en localstorage
-                localStorage.setItem('sessiontoken', response.token);
-                localStorage.setItem('user', username)
-                
-                if(username == "admin"){
-                    // Redirigir a ejercicios.html
-                    window.location.href = "/ejercicios";
-                }
-                else{
-                    window.location.href = "/libreria";
-                }
-                
+
+                // Redirigir a ejercicios.html
+                window.location.href = "/";
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Mostrar mensaje de error
@@ -35,8 +26,8 @@ $(document).ready(function() {
         });
     });
 
-    $("#btn-reg").click(function() {
+    $("#btn-login").click(function() {
         // Redirigir a libreria.html
-        window.location.href = "/registro";
+        window.location.href = "/";
     });
 });

@@ -41,14 +41,14 @@ let library_equip = [
 let library_exercise = []
 var id_exer = "";
 
-
+let user = localStorage.getItem('user');
 function getLibrary(){
     library_exercise = []
     $.ajax({
-        url: 'http://localhost:8080/fithub/exercices',
+        url: '/fithub/getUserExer/'+ user,
         type: 'GET',
         success: function(res) {
-          const _library_exercise = res.map(item => ({
+          const _library_exercise = res.exercices.map(item => ({
             _id: item._id,
             title_exer: item.title_exer,
             muscle_exer: item.muscle_exer,
@@ -170,7 +170,7 @@ $(".contenedor").on("click", '.btn-del', function(){
       };
 
     $.ajax({
-        url: 'http://localhost:8080/fithub/del_excer',
+        url: '/fithub/del_excer',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ _id: ejercicioId._id }),
@@ -208,7 +208,7 @@ function createExcersice(){
 
 function post_new_exe(exercise){
     $.ajax({
-        url: 'http://localhost:8080/fithub/newExer',
+        url: '/fithub/newExer',
         type: 'POST',
         data: JSON.stringify(exercise),
         contentType: "application/json",
@@ -248,7 +248,7 @@ function updateExcersice(){
       console.log(ejercicio._id)
       
     $.ajax({
-      url: 'http://localhost:8080/fithub/edit_excer/' + ejercicio._id,
+      url: '/fithub/edit_excer/' + ejercicio._id,
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify(ejercicio),
@@ -287,12 +287,6 @@ function fSelItem(){
         pos++
     }while(pos < library_exercise.length)   
 }
-
-$(document).ready(function() {
-  $("#btnLogin").click(function() {
-      window.location.href = "login.html";
-  });
-});
 
 function loadLibrary(array) {
   $("#items-library").empty();

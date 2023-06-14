@@ -21,6 +21,18 @@ app.get('/', function(req,res){
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+app.get('/registro', function(req,res){
+    res.sendFile(path.join(__dirname, 'public', 'registro.html'));
+});
+
+app.get('/libreria', function(req,res){
+    res.sendFile(path.join(__dirname, 'public', 'libreria.html'));
+});
+
+app.get('/ejercicios', function(req,res){
+    res.sendFile(path.join(__dirname, 'public', 'ejercicios.html'));
+});
+
 app.get('/fithub/validate-token', (req, res) => {
     let token = req.headers.sessiontoken;
     
@@ -90,7 +102,7 @@ app.post('/fithub/login', jsonParser, (req,res) => {
                     let userData = {
                         email : user.email
                     };
-                    jsonwebtoken.sign(userData, SECRET_TOKEN, {expiresIn : 30}, (err, token) => {
+                    jsonwebtoken.sign(userData, SECRET_TOKEN, {expiresIn : "5m"}, (err, token) => {
                         if (err) {
                             res.statusMessage = err.message;
                             return res.status(400).end();
@@ -253,11 +265,11 @@ app.post('/fithub/addUserExer', jsonParser, (req,res) => {
 //get user exercices
 //te regresa un usuario con su arreglo de exercicios y sus parametros
 //user_id es el email del usuario
-app.get('/fithub/getUserExer', jsonParser, (req,res) => {
-    let { user_id } = req.body;
+app.get('/fithub/getUserExer/:id', (req,res) => {
+    let { id } = req.params;
 
     Users
-        .getUserE(user_id)
+        .getUserE(id)
         .then(user => {
            return res.status(200).json(user);
         })

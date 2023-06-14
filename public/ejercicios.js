@@ -1,22 +1,5 @@
 $(document).ready(function() {
 
-  // Verificar si hay un token almacenado
-  var token = localStorage.getItem('sessiontoken');
-  if (!token) {
-      // Si no hay token, redirigir al inicio de sesión
-      window.location.href = "login.html";
-  }
-
-  // ... el resto de tu código va aquí ...
-
-  // Controlador de eventos para el botón de cierre de sesión
-  $("#btnLogout").click(function() {
-      // Borrar el token del Local Storage
-      localStorage.removeItem('sessiontoken');
-      // Redirigir al inicio de sesión
-      window.location.href = "login.html";
-  });
-
 
 let library_muscles = [ 
     "Todos",
@@ -61,7 +44,7 @@ var id_exer = "";
 function getLibrary(){
     library_exercise = []
     $.ajax({
-        url: 'http://localhost:8080/fithub/exercices',
+        url: '/fithub/exercices',
         type: 'GET',
         success: function(res) {
           const _library_exercise = res.map(item => ({
@@ -162,8 +145,19 @@ $(".lib-title").on("click", '.btnNewExc', function(){
     $("#ne_anim_img_url").val(var_clear)
   })
 
+  $(".lib-title").on("click", '.btnadd', function(){
+    let var_clear = ''
+    document.getElementById('add-excer-container').style.display="block";
+    $("#add_user").val(var_clear)
+    $("#add_e").val(var_clear)
+  })
+
 $(".new-excer-container").on("click", '.btn-cancel', function(){
     document.getElementById('new-excer-container').style.display="none"
+})
+
+$(".add-excer-container").on("click", '.btn-cancel', function(){
+  document.getElementById('add-excer-container').style.display="none"
 })
 
 $(".contenedor").on("click", '.btn-upd', function(){
@@ -178,6 +172,7 @@ $(".contenedor").on("click", '.btn-upd', function(){
 })
 
 
+
 $(".contenedor").on("click", '.btn-del', function(){
 
     var ejercicioId = {
@@ -185,7 +180,7 @@ $(".contenedor").on("click", '.btn-del', function(){
       };
 
     $.ajax({
-        url: 'http://localhost:8080/fithub/del_excer',
+        url: '/fithub/del_excer',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ _id: ejercicioId._id }),
@@ -209,6 +204,27 @@ $(".new-excer-container").on("click", '.btn-submit', function(){
     }
 })
 
+$(".add-excer-container").on("click", '.btn-submit', function(){
+  document.getElementById('add-excer-container').style.display="none"
+  let addEx = {
+    "user_id" : $("#add_user").val(),
+    "exer_id" : $("#add_e").val()
+  }
+  console.log(addEx);
+  $.ajax({
+    url: '/fithub/addUserExer',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(addEx),
+    success: function(res) {
+      console.log('Done ', res);
+    },
+    error: function(error) {
+      console.error('Ocurrió un error: ', error);
+    }
+  });
+})
+
 function createExcersice(){
     var exercise = new Object()
     exercise.title_exer = $("#ne_name").val()
@@ -223,7 +239,7 @@ function createExcersice(){
 
 function post_new_exe(exercise){
     $.ajax({
-        url: 'http://localhost:8080/fithub/newExer',
+        url: '/fithub/newExer',
         type: 'POST',
         data: JSON.stringify(exercise),
         contentType: "application/json",
@@ -263,12 +279,12 @@ function updateExcersice(){
       console.log(ejercicio._id)
       
     $.ajax({
-      url: 'http://localhost:8080/fithub/edit_excer/' + ejercicio._id,
+      url: '/fithub/edit_excer/' + ejercicio._id,
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify(ejercicio),
       success: function(res) {
-        console.log('Ejercicio actualizado con éxito: ', res);
+        console.log('Ejercicio actualizado con éxito: ');
       },
       error: function(error) {
         console.error('Ocurrió un error al actualizar el ejercicio: ', error);
@@ -279,12 +295,6 @@ function updateExcersice(){
 }
 
 $("#items-library").on("click", '.item' ,'button', fSelItem)
-
-$(document).ready(function() {
-  $("#btnLogout").click(function() {
-      window.location.href = "login.html";
-  });
-});
 
 
 function fSelItem(){

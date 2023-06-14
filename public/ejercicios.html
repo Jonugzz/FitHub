@@ -55,6 +55,28 @@
             </div>
         </div>
     </div>
+
+        <!-- add exercise form -->
+        <div class="add-excer-container" id="add-excer-container">
+            <div class="form-area">
+                <h3>Agreagar ejercicio</h3>
+    
+                <p class="single-form">
+                    <input type="text" name="name" id="add_user" required>
+                    <label for="name">Nombre del Usuario</label>
+                </p>
+
+                <p class="single-form">
+                    <input type="text" name="name" id="add_e" required>
+                    <label for="name">Nombre ejercicio</label>
+                </p>
+                
+                <div class="new_exc_buttons">
+                    <p class="btn-form btn-submit" id="btn-submit">Guardar</p>
+                    <p class="btn-form btn-cancel" id="btn-cancel">Cancelar</p>
+                </div>
+            </div>
+        </div>
     
     <div class="contenedor">
 
@@ -83,6 +105,7 @@
                 <div class="lib-title">
                     <h3>Librería</h3>
                     <p id="btnNewExc" class="btnNewExc">+ Crear ejercicio</p>
+                    <p id="btnadd" class="btnadd">+ Asignar</p>
                 </div>
                 
                 <input class="fil_width" type="text" name="buscar_ejercicio" id="buscar_ejercicio" placeholder="Buscar ejercicio..">
@@ -155,5 +178,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="ejercicios.js"></script>
+    <script src="session.js"></script>
 </body>
 </html>
